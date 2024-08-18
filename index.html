@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EngHar Mining Bot</title>
+    <title>EngHarBot Mining</title>
     <style>
         body {
             display: flex;
@@ -50,8 +50,8 @@
             }
         }
 
-        .counter, .coins {
-            font-size: 30px;
+        .counter, .coins, .history {
+            font-size: 18px;
             margin-bottom: 15px;
         }
 
@@ -82,22 +82,6 @@
 
         .clicker-btn:hover {
             transform: scale(1.1);
-        }
-
-        .reset-btn {
-            background: #e74c3c;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            outline: none;
-            margin-top: 10px;
-        }
-
-        .reset-btn:hover {
-            background: #c0392b;
         }
 
         .claim-link {
@@ -188,30 +172,31 @@
         <div class="title">EngHarBot</div>
         <div id="counter" class="counter">Clicks: 0</div>
         <div id="coins" class="coins">Coins: $0.000</div>
+        <div id="history" class="history">Previous Balance: $0.000</div>
         <button id="clicker-btn" class="clicker-btn">Click</button>
-        <button id="reset-btn" class="reset-btn">Reset</button>
         <a id="claim-link" class="claim-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf2qjfWMTK0zMwuLibt-v9sH3-0sYdEZfYcMGWs_tf81dX3xA/viewform?usp=pp_url" target="_blank">Claim Your Coins</a>
     </div>
 
     <div class="bottom-nav">
-        <a href="#" class="nav-btn" onclick="showMessage()"><i>📊</i>Rank</a>
-        <a href="#" class="nav-btn" onclick="showMessage()"><i>🤖</i>EngHarBot</a>
-        <a href="#" class="nav-btn" onclick="showMessage()"><i>💰</i>Earn</a>
+        <a href="https://wa.me/234737200590" class="nav-btn"><i>📊</i>Rank</a>
+        <a href="https://www.facebook.com/babalele.enghar/" class="nav-btn"><i>🤖</i>EngHarBot</a>
+        <a href="https://twitter.com/harunaa67821786" class="nav-btn"><i>💰</i>Earn</a>
         <a href="#" class="nav-btn" onclick="showMessage()"><i>👛</i>Wallet</a>
     </div>
 
-    <div id="message" class="message">Available very soon be patient!!!</div>
+    <div id="message" class="message">Display available very soon</div>
 
     <script>
         let counter = 0;
         let coins = 0;
+        let previousCoins = 0;
         const coinValuePerClick = 0.001;
         const clicksPerCoin = 100;
 
         const counterElement = document.getElementById('counter');
         const coinsElement = document.getElementById('coins');
+        const historyElement = document.getElementById('history');
         const clickerButton = document.getElementById('clicker-btn');
-        const resetButton = document.getElementById('reset-btn');
         const claimLink = document.getElementById('claim-link');
         const messageElement = document.getElementById('message');
 
@@ -222,17 +207,11 @@
             if (counter % clicksPerCoin === 0) {
                 coins += coinValuePerClick;
                 coinsElement.textContent = `Coins: $${coins.toFixed(3)}`;
+                historyElement.textContent = `Previous Balance: $${previousCoins.toFixed(3)}`;
+                previousCoins = coins;
                 claimLink.style.display = 'block';
                 showCoinPop();
             }
-        });
-
-        resetButton.addEventListener('click', () => {
-            counter = 0;
-            coins = 0;
-            counterElement.textContent = 'Clicks: 0';
-            coinsElement.textContent = 'Coins: $0.000';
-            claimLink.style.display = 'none';
         });
 
         function showCoinPop() {
