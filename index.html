@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngHar Mining Bot</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #2c3e50, #3498db);
+            text-align: center;
+            color: #ecf0f1;
+            padding: 10px;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 15px;
+            padding: 15px;
+            background: #34495e;
+            border: 4px solid #1abc9c;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+            color: #1abc9c;
+            animation: blink 1.5s linear infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .counter, .coins {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .clicker-btn {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #2980b9, #3498db);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.2);
+            border: none;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .clicker-btn::before {
+            content: "🐇";
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .clicker-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .reset-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            background: #c0392b;
+        }
+
+        .claim-link {
+            display: none;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #f39c12;
+            text-decoration: none;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 2px;
+        }
+
+        .claim-link:hover {
+            color: #d35400;
+            border-bottom: 2px solid #d35400;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: #34495e;
+            padding: 10px 0;
+            border-top: 2px solid #1abc9c;
+            z-index: 1;
+        }
+
+        .nav-btn {
+            flex: 1;
+            font-size: 14px;
+            color: #ecf0f1;
+            text-align: center;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #1abc9c;
+            color: #34495e;
+        }
+
+        .nav-btn i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        .message {
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .coin-pop {
+            position: absolute;
+            font-size: 20px;
+            color: #f39c12;
+            animation: pop 1s ease-out forwards;
+        }
+
+        @keyframes pop {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">EngHarBot</div>
+        <div id="counter" class="counter">Clicks: 0</div>
+        <div id="coins" class="coins">Coins: $0.000</div>
+        <button id="clicker-btn" class="clicker-btn">Click</button>
+        <button id="reset-btn" class="reset-btn">Reset</button>
+        <a id="claim-link" class="claim-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf2qjfWMTK0zMwuLibt-v9sH3-0sYdEZfYcMGWs_tf81dX3xA/viewform?usp=pp_url" target="_blank">Claim Your Coins</a>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="#" class="nav-btn" onclick="showMessage()"><i>📊</i>Rank</a>
+        <a href="#" class="nav-btn" onclick="showMessage()"><i>🤖</i>EngHarBot</a>
+        <a href="#" class="nav-btn" onclick="showMessage()"><i>💰</i>Earn</a>
+        <a href="#" class="nav-btn" onclick="showMessage()"><i>👛</i>Wallet</a>
+    </div>
+
+    <div id="message" class="message">Available very soon be patient!!!</div>
+
+    <script>
+        let counter = 0;
+        let coins = 0;
+        const coinValuePerClick = 0.001;
+        const clicksPerCoin = 100;
+
+        const counterElement = document.getElementById('counter');
+        const coinsElement = document.getElementById('coins');
+        const clickerButton = document.getElementById('clicker-btn');
+        const resetButton = document.getElementById('reset-btn');
+        const claimLink = document.getElementById('claim-link');
+        const messageElement = document.getElementById('message');
+
+        clickerButton.addEventListener('click', () => {
+            counter++;
+            counterElement.textContent = `Clicks: ${counter}`;
+
+            if (counter % clicksPerCoin === 0) {
+                coins += coinValuePerClick;
+                coinsElement.textContent = `Coins: $${coins.toFixed(3)}`;
+                claimLink.style.display = 'block';
+                showCoinPop();
+            }
+        });
+
+        resetButton.addEventListener('click', () => {
+            counter = 0;
+            coins = 0;
+            counterElement.textContent = 'Clicks: 0';
+            coinsElement.textContent = 'Coins: $0.000';
+            claimLink.style.display = 'none';
+        });
+
+        function showCoinPop() {
+            const coinPop = document.createElement('div');
+            coinPop.className = 'coin-pop';
+            coinPop.textContent = '💰';
+            document.querySelector('.container').appendChild(coinPop);
+
+            setTimeout(() => {
+                coinPop.remove();
+            }, 1000);
+        }
+
+        function showMessage() {
+            messageElement.style.display = 'block';
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
