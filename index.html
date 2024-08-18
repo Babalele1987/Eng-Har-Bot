@@ -171,8 +171,8 @@
     <div class="container">
         <div class="title">EngHarBot</div>
         <div id="counter" class="counter">Clicks: 0</div>
-        <div id="coins" class="coins">Coins: $0.000</div>
-        <div id="history" class="history">Previous Balance: $0.000</div>
+        <div id="coins" class="coins">Coins: 0.000 ADA</div>
+        <div id="history" class="history">Previous Balance: 0.000 ADA</div>
         <button id="clicker-btn" class="clicker-btn">Click</button>
         <a id="claim-link" class="claim-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf2qjfWMTK0zMwuLibt-v9sH3-0sYdEZfYcMGWs_tf81dX3xA/viewform?usp=pp_url" target="_blank">Claim Your Coins</a>
     </div>
@@ -181,7 +181,7 @@
         <a href="https://wa.me/234737200590" class="nav-btn"><i>📊</i>Rank</a>
         <a href="https://www.facebook.com/babalele.enghar/" class="nav-btn"><i>🤖</i>EngHarBot</a>
         <a href="https://twitter.com/harunaa67821786" class="nav-btn"><i>💰</i>Earn</a>
-        <a href="#" class="nav-btn" onclick="showMessage()"><i>👛</i>Wallet</a>
+        <a href="https://t.me/+2349012466630" class="nav-btn"><i>👛</i>Wallet</a>
     </div>
 
     <div id="message" class="message">Display available very soon</div>
@@ -206,8 +206,8 @@
 
             if (counter % clicksPerCoin === 0) {
                 coins += coinValuePerClick;
-                coinsElement.textContent = `Coins: $${coins.toFixed(3)}`;
-                historyElement.textContent = `Previous Balance: $${previousCoins.toFixed(3)}`;
+                coinsElement.textContent = `Coins: ${coins.toFixed(3)} ADA`;
+                historyElement.textContent = `Previous Balance: ${previousCoins.toFixed(3)} ADA`;
                 previousCoins = coins;
                 claimLink.style.display = 'block';
                 showCoinPop();
